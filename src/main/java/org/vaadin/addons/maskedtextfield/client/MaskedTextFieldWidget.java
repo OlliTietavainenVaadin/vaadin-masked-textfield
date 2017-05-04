@@ -412,6 +412,9 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 		}
 	}
 
+	// do not clear the field on blur
+	// fixes https://github.com/andersonfreitas/vaadin-masked-textfield/issues/25
+/*
 	@Override
 	public void onBlur(BlurEvent event) {
 		if(isFieldIfIncomplete()) {
@@ -420,7 +423,8 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 			super.onBlur(event);
 		}
 	}
-	
+*/
+
 	private void cleanText() {
 		super.setText("");
 		super.valueChange(true);

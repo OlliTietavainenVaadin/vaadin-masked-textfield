@@ -1,14 +1,7 @@
-*.class
-WebContent/VAADIN/*
-build/*
-.DS_STORE
-gwt/*
-bin/
-src/test
-src/rebel.xml
-src/main/webapp
-dist/*
+src/test/webapp
 target
 .settings
 .project
 .classpath
+*.iml
+.idea

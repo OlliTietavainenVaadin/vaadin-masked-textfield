@@ -1,16 +1,12 @@
 package org.vaadin.addons.maskedtextfield;
 
 import java.util.Arrays;
-import java.util.Locale;
+
 
 import org.vaadin.addons.maskedtextfield.client.MaskedTextFieldState;
-import org.vaadin.addons.maskedtextfield.server.Utils;
+
 import org.vaadin.addons.maskedtextfield.shared.Constants;
 
-import com.ibm.icu.math.BigDecimal;
-import com.vaadin.data.Property;
-import com.vaadin.data.util.converter.AbstractStringToNumberConverter;
-import com.vaadin.data.util.converter.Converter;
 import com.vaadin.ui.TextField;
 
 /**
@@ -30,7 +26,6 @@ public class MaskedTextField extends TextField {
 
 	public MaskedTextField(String caption) {
 		setCaption(caption);
-		setConverter(new UnmaskModelConverter(this));
 	}
 
 	public MaskedTextField(String caption, String mask) {
@@ -38,30 +33,6 @@ public class MaskedTextField extends TextField {
 		setMask(mask);
 	}
 
-	public MaskedTextField(Property<?> dataSource) {
-		super(dataSource);
-		setConverter(new UnmaskModelConverter(this));
-	}
-
-	public MaskedTextField(String caption, Property<?> dataSource) {
-		super(caption, dataSource);
-		setConverter(new UnmaskModelConverter(this));
-	}
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void setPropertyDataSource(Property newDataSource) {
-		if(newDataSource != null) {
-			super.setPropertyDataSource(newDataSource);
-			if(Number.class.isAssignableFrom(newDataSource.getType())) {
-				validateNumberPropertyWithMask();
-				setConverter(new MaskNumberConverter());
-			} else if (char.class.isAssignableFrom(newDataSource.getType()) || String.class.isAssignableFrom(newDataSource.getType())) {
-				setConverter(new UnmaskModelConverter(this));
-			}
-		}
-	}
-	
 	private void validateNumberPropertyWithMask() {
 		char[] maskChars = getMask().replaceAll("\\+", "").toCharArray();
 		for(char s : maskChars) {
@@ -80,16 +51,11 @@ public class MaskedTextField extends TextField {
 	}
 	
 	public char getPlaceHolder() {
-		return getState().placeHolder;
+		return getState().maskPlaceHolder;
 	}
 	
 	public void setPlaceHolder(char placeHolder) {
-		getState().placeHolder = placeHolder;
-	}
-	
-	public void setMaskClientOnly(boolean isMaskClientOnly) {
-		this.maskClientOnly = isMaskClientOnly;
-		setConverter(new UnmaskModelConverter(this));
+		getState().maskPlaceHolder = placeHolder;
 	}
 	
 	public boolean isMaskClientOnly() {
@@ -122,78 +88,6 @@ public class MaskedTextField extends TextField {
 	
 	protected String unmask(final String value) {
 		return unmask(value, getMask());
-	}
-	
-	/**
-	 * Tenta converter uma instancia de mascaras unicamente de digitos para um numero aplicavel em um datasource
-	 * @author Eduardo Frazao
-	 *
-	 */
-	private class MaskNumberConverter extends AbstractStringToNumberConverter<Number> {
-
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public Number convertToModel(String value, Class<? extends Number> targetType, Locale locale) throws ConversionException {
-			String unmasked = unmask(value);
-			if(unmasked != null) {
-				try {
-					Number n = new BigDecimal(value);
-					return Utils.convertToDataSource(n, getPropertyDataSource());
-				} catch (NumberFormatException ne) {
-					return Utils.convertToDataSource(0, getPropertyDataSource());
-				}
-			}
-			return Utils.convertToDataSource(0, getPropertyDataSource());
-		}
-
-		@Override
-		public Class<Number> getModelType() {
-			return Number.class;
-		}
-		
-	}
-	
-	/**
-	 * Converter simples para remover a mascara caso configurado pelo usuario
-	 * @author eduardo
-	 *
-	 */
-	private static class UnmaskModelConverter implements Converter<String, String> {
-
-		private static final long serialVersionUID = 1L;
-
-		private MaskedTextField field;
-		
-		public UnmaskModelConverter(MaskedTextField field) {
-			this.field = field;
-		}
-		@Override
-		public String convertToModel(String value, Class<? extends String> targetType, Locale locale) throws ConversionException {
-			return value;
-		}
-
-		@Override
-		public String convertToPresentation(String value, Class<? extends String> targetType, Locale locale) throws ConversionException {
-			if(field.isMaskClientOnly()) {
-				String unmasked = field.unmask(value);
-				if(unmasked != null) {
-					return unmasked;
-				}
-			} 
-			return value;
-		}
-
-		@Override
-		public Class<String> getModelType() {
-			return String.class;
-		}
-
-		@Override
-		public Class<String> getPresentationType() {
-			return String.class;
-		}
-		
 	}
 
 }

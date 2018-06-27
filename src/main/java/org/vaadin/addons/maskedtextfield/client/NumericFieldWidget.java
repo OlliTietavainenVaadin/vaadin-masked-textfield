@@ -1,15 +1,14 @@
 package org.vaadin.addons.maskedtextfield.client;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-
-import org.vaadin.addons.maskedtextfield.shared.Constants;
-
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.vaadin.client.ui.VTextField;
+import org.vaadin.addons.maskedtextfield.shared.Constants;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class NumericFieldWidget extends VTextField {
 	
@@ -17,7 +16,7 @@ public class NumericFieldWidget extends VTextField {
 			new Character[] {
 				(char) KeyCodes.KEY_BACKSPACE,
 				(char) KeyCodes.KEY_TAB,
-				(char) KeyCodes.KEY_DELETE,  
+				(char) KeyCodes.KEY_DELETE,
 				(char) KeyCodes.KEY_END,
 				(char) KeyCodes.KEY_ENTER,
 				(char) KeyCodes.KEY_ESCAPE,

@@ -3,7 +3,6 @@ package org.vaadin.addons.maskedtextfield.server;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.vaadin.data.Property;
 
 public class Utils {
 	
@@ -12,7 +11,7 @@ public class Utils {
 	 * @param number
 	 * @param property
 	 * @return
-	 */
+
 	public static Number convertToDataSource(final Number number, final Property<?> property) {
 		Class<?> propertyClass = property.getType();
 		if(Integer.class.isAssignableFrom(propertyClass) || int.class.isAssignableFrom(propertyClass)) {
@@ -32,5 +31,5 @@ public class Utils {
 		}
 		return number;
 	}
-
+	 */
 }

@@ -1,10 +1,10 @@
 package org.vaadin.addons.maskedtextfield.client;
 
-import java.util.Map;
-
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.user.client.Event;
+
+import java.util.Map;
 
 public class PrefixedMaskedTextFieldWidget extends MaskedTextFieldWidget {
 
@@ -29,15 +29,6 @@ public class PrefixedMaskedTextFieldWidget extends MaskedTextFieldWidget {
 			super.setMask(mask);
 		}
 	}
-	
-	/*
-	private boolean isMaskCompatibleWithValue(String mask) {
-		if(getText() == null || getText().isEmpty()) {
-			
-		}
-		return true;
-	}
-	*/
 
 	@Override
 	public void onKeyPress(KeyPressEvent event) {

@@ -1,9 +1,5 @@
 package org.vaadin.addons.maskedtextfield.client;
 
-import java.util.Arrays;
-
-import org.vaadin.addons.maskedtextfield.shared.Constants;
-
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -12,19 +8,23 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.Event;
 import com.vaadin.client.ui.VTextField;
+import org.vaadin.addons.maskedtextfield.shared.Constants;
+
+import java.util.Arrays;
 
 /**
  * Widget para controlar a edicao de valores de moeda 
  * @author Eduardo Frazao
  *
  */
-public class DecimalFieldWidget extends VTextField implements KeyPressHandler, BlurHandler, FocusHandler {
+public class DecimalFieldWidget extends VTextField implements KeyPressHandler, BlurHandler, FocusHandler, KeyDownHandler {
 	
 	
 	private char decimalSeparator;
@@ -41,7 +41,7 @@ public class DecimalFieldWidget extends VTextField implements KeyPressHandler, B
 	protected static char[] acceptedCharSet = {
 		(char) KeyCodes.KEY_BACKSPACE,
 		(char) KeyCodes.KEY_TAB,
-		(char) KeyCodes.KEY_DELETE,  
+		(char) KeyCodes.KEY_DELETE,
 		(char) KeyCodes.KEY_END,
 		(char) KeyCodes.KEY_ENTER,
 		(char) KeyCodes.KEY_UP,
@@ -125,11 +125,8 @@ public class DecimalFieldWidget extends VTextField implements KeyPressHandler, B
 	@Override
 	public void onKeyDown(KeyDownEvent event) {
 		if(event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-			
 			refreshValue();
-			
 		}
-		super.onKeyDown(event);
 	}
 
 	@Override
@@ -164,7 +161,6 @@ public class DecimalFieldWidget extends VTextField implements KeyPressHandler, B
 	
 	public void onPaste(Event event) {
 		refreshValue();
-		valueChange(false);
 	}
 
 	private void refreshValue() {
@@ -181,7 +177,6 @@ public class DecimalFieldWidget extends VTextField implements KeyPressHandler, B
 		if(text != null || newValue != null) {
 			if((old == null || !newValue.equals(old)) || newValue == null) {
 				super.setText(text);
-				valueChange(false);
 			}
 		}
 		
@@ -245,7 +240,6 @@ public class DecimalFieldWidget extends VTextField implements KeyPressHandler, B
 		if(decimalSeparator != this.decimalSeparator) {
 			this.decimalSeparator = decimalSeparator;
 			refreshValue();
-			valueChange(false);
 		}
 	}
 
@@ -257,7 +251,6 @@ public class DecimalFieldWidget extends VTextField implements KeyPressHandler, B
 		if(groupingSeparator != this.groupingSeparator) {
 			this.groupingSeparator = groupingSeparator;
 			refreshValue();
-			valueChange(false);
 		}
 	}
 
@@ -270,7 +263,6 @@ public class DecimalFieldWidget extends VTextField implements KeyPressHandler, B
 			this.mask = mask;
 			formatter = NumberFormat.getFormat(this.mask);
 			refreshValue();
-			valueChange(false);
 		}
 	}
 	

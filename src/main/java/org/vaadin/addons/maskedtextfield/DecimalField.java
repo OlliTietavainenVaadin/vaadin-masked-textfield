@@ -1,35 +1,26 @@
 package org.vaadin.addons.maskedtextfield;
 
+import com.vaadin.data.Result;
+import com.vaadin.data.ValueContext;
+import com.vaadin.data.converter.AbstractStringToNumberConverter;
+import com.vaadin.ui.TextField;
+import org.vaadin.addons.maskedtextfield.client.DecimalFieldState;
+import org.vaadin.addons.maskedtextfield.server.Utils;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Locale;
-
-import org.vaadin.addons.maskedtextfield.client.DecimalFieldState;
-import org.vaadin.addons.maskedtextfield.server.Utils;
-
-import com.vaadin.data.Property;
-import com.vaadin.data.util.converter.AbstractStringToNumberConverter;
-import com.vaadin.ui.TextField;
 
 public class DecimalField extends TextField {
 
 	private static final long serialVersionUID = 1L;
 
 	private MaskNumberConverter localConverter = null;
-	
+	private MaskNumberConverter converter;
+
 	public DecimalField() {
 		super();
-		initConverter();
-	}
-
-	public DecimalField(Property<?> dataSource) {
-		super(dataSource);
-		initConverter();
-	}
-
-	public DecimalField(String caption, Property<?> dataSource) {
-		super(caption, dataSource);
 		initConverter();
 	}
 
@@ -52,7 +43,7 @@ public class DecimalField extends TextField {
 	}
 
 	private void initConverter() {
-		localConverter = new MaskNumberConverter();
+		localConverter = new MaskNumberConverter(0, "Error converting string to number");
 		setConverter(localConverter);
 	}
 	
@@ -60,17 +51,17 @@ public class DecimalField extends TextField {
 	public void setValue(String string) {
 		super.setValue(string);
 	}
-	
+
 	public void setValue(Number number) {
-		if(number != null) {
-			if(getConverter() != null) {
-				String v = getConverter().convertToPresentation(number, String.class, getLocale());
+		if (number != null) {
+			if (getConverter() != null) {
+				String v = getConverter().convertToPresentation(number, new ValueContext(getLocale()));
 				setValue(v);
 			} else {
-				setValue( (String) null);
+				setValue((String) null);
 			}
 		} else {
-			setValue( (String) null);
+			setValue((String) null);
 		}
 	}
 	
@@ -118,16 +109,13 @@ public class DecimalField extends TextField {
 	public boolean isSelectValueOnFocus() {
 		return getState().selectValuesOnFocus;
 	}
-	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void setPropertyDataSource(Property newDataSource) {
-		if(newDataSource != null) {
-			if(!Number.class.isAssignableFrom(newDataSource.getType())) {
-				throw new IllegalArgumentException("This field is compatible with number datasources only");
-			}
-			super.setPropertyDataSource(newDataSource);
-		}
+
+	public void setConverter(MaskNumberConverter converter) {
+		this.converter = converter;
+	}
+
+	public MaskNumberConverter getConverter() {
+		return converter;
 	}
 
 	/**
@@ -140,11 +128,12 @@ public class DecimalField extends TextField {
 		private static final long serialVersionUID = 1L;
 
 		private DecimalFormat formatter;
-		
-		public MaskNumberConverter() {
+
+		protected MaskNumberConverter(Number emptyValue, String errorMessage) {
+			super(emptyValue, errorMessage);
 			refreshFormatter();
 		}
-		
+
 		public void refreshFormatter() {
 			if(formatter == null || 
 					(	formatter.getDecimalFormatSymbols().getGroupingSeparator() != getGroupingSeparator()
@@ -159,39 +148,21 @@ public class DecimalField extends TextField {
 				formatter.setDecimalFormatSymbols(decimalSymbols);
 			}
 		}
-		
-		
+
+
 		@Override
-		public Number convertToModel(String value, Class<? extends Number> targetType, Locale locale) throws ConversionException {
+		public Result<Number> convertToModel(String value, ValueContext valueContext) {
 			refreshFormatter();
 			try {
 				if(value == null || value.trim().isEmpty()) {
 					return null;
 				}
 				Number number = formatter.parse(value);
-				if(getPropertyDataSource() != null) {
-					return Utils.convertToDataSource(number, getPropertyDataSource());
-				}
-				return number;
+				return Result.ok(number);
 			} catch (ParseException e) {
-				return Utils.convertToDataSource(new Double(0.0), getPropertyDataSource());
+				return Result.ok(0);
 			}
 		}
-
-		@Override
-		public String convertToPresentation(Number value, Class<? extends String> targetType, Locale locale) throws ConversionException {
-			if(value != null) {
-				refreshFormatter();
-				return formatter.format(value);
-			}
-			return null;
-		}
-
-		@Override
-		public Class<Number> getModelType() {
-			return Number.class;
-		}
-
 	}
 
 }

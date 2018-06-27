@@ -16,7 +16,6 @@ import org.vaadin.addons.maskedtextfield.client.masks.WildcardMask;
 import org.vaadin.addons.maskedtextfield.shared.Constants;
 
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
@@ -34,7 +33,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	protected String mask;
 	private String proccessedMask;
 	
-	private char placeholder = '_';
+	private char maskplaceholder = '_';
 	
 	private StringBuilder string;
 	private List<Mask> maskTest;
@@ -80,7 +79,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 		String v = formatString(value);
 		string = new StringBuilder(v);
 		super.setText((checkComplete && isFieldIfIncomplete()) ? "" : v);
-		valueChange(false);
+		//valueChange(false);
 	}
 
 	public void setMask(String mask) {
@@ -101,7 +100,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	}
 	
 	public void setPlaceHolder(char placeHolder) {
-		this.placeholder = placeHolder;
+		this.maskplaceholder = placeHolder;
 	}
 
 	private void configureMask() {
@@ -115,7 +114,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	private void configureUserView() {
 		configureMask();
 		super.setText(proccessedMask);
-		valueChange(false);
+		//valueChange(false);
 	}
 
 	private void createCorrectMaskAndPlaceholder(char character, int index) {
@@ -124,28 +123,28 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 			addMaskStrategyAndCharacterPlaceHolder(null, mask.charAt(++index));
 			break;
 		case '#':
-			addMaskStrategyAndCharacterPlaceHolder(new NumericMask(),placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new NumericMask(), maskplaceholder);
 			break;
 		case 'U':
-			addMaskStrategyAndCharacterPlaceHolder(new UpperCaseMask(), placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new UpperCaseMask(), maskplaceholder);
 			break;
 		case 'L':
-			addMaskStrategyAndCharacterPlaceHolder(new LowerCaseMask(), placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new LowerCaseMask(), maskplaceholder);
 			break;
 		case '?':
-			addMaskStrategyAndCharacterPlaceHolder(new LetterMask(), placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new LetterMask(), maskplaceholder);
 			break;
 		case 'A':
-			addMaskStrategyAndCharacterPlaceHolder(new AlphanumericMask(), placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new AlphanumericMask(), maskplaceholder);
 			break;
 		case '*':
-			addMaskStrategyAndCharacterPlaceHolder(new WildcardMask(), placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new WildcardMask(), maskplaceholder);
 			break;
 		case 'H':
-			addMaskStrategyAndCharacterPlaceHolder(new HexMask(), placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new HexMask(), maskplaceholder);
 			break;
 		case '~':
-			addMaskStrategyAndCharacterPlaceHolder(new SignMask(), placeholder);
+			addMaskStrategyAndCharacterPlaceHolder(new SignMask(), maskplaceholder);
 			break;
 		case '+':
 			nullablePositions.add(index++);
@@ -291,7 +290,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 		string.setCharAt(currentPosition, character); 
 		super.setText(string.toString());
 		setCursorPos(getNextPosition(currentPosition));
-		valueChange(false);
+		//valueChange(false);
 	}
 
 	@Override
@@ -312,9 +311,9 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 			if(isFieldIfIncomplete()) {
 				cleanText();
 			}
-			super.onKeyDown(event);
+			//super.onKeyDown(event);
 		} else {
-			super.onKeyDown(event);
+			//super.onKeyDown(event);
 		}
 	}
 	
@@ -348,9 +347,9 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	private void deleteCharacter(int position) {
 		Mask maskStrategy = maskTest.get(position);
 		if (maskStrategy != null) {
-			string.setCharAt(position, placeholder);
+			string.setCharAt(position, maskplaceholder);
 			super.setText(string.toString());
-			valueChange(false);
+			//valueChange(false);
 		}
 	}
 
@@ -380,14 +379,14 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	public int getNextAvaliableCursorPos(int desiredPosition) {
 		int i = desiredPosition;
 		for(;i<maskTest.size(); i++) {
-			if(maskTest.get(i) != null && string.charAt(i) == placeholder) {
+			if(maskTest.get(i) != null && string.charAt(i) == maskplaceholder) {
 				break;
 			}
 		}
 		return i;
 	}
 	
-	@Override
+	/*@Override
 	protected boolean updateCursorPosition() {
 		if(!isImmediate()) {
 			return super.updateCursorPosition();
@@ -404,14 +403,14 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	private boolean isImmediate() {
 		return immediate;
 	}
-	
+
 	@Override
 	public void valueChange(boolean blurred) {
 		if(!isFieldIfIncomplete()) {
 			super.valueChange(blurred);
 		}
 	}
-
+*/
 	// do not clear the field on blur
 	// fixes https://github.com/andersonfreitas/vaadin-masked-textfield/issues/25
 /*
@@ -427,7 +426,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 
 	private void cleanText() {
 		super.setText("");
-		super.valueChange(true);
+		//super.valueChange(true);
 	}
 	
 	protected boolean isFieldIfIncomplete() {
@@ -436,7 +435,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 		}
 		for (int index = 0; index < string.length(); index++) {
 			char character = string.charAt(index);
-			if (maskTest.get(index) != null && character == placeholder) {
+			if (maskTest.get(index) != null && character == maskplaceholder) {
 				return true;
 			}
 		}
@@ -465,7 +464,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 				}
 			}
 		}
-		return sb.toString().replaceAll(String.valueOf(placeholder), "");
+		return sb.toString().replaceAll(String.valueOf(maskplaceholder), "");
 	}
 	
 }

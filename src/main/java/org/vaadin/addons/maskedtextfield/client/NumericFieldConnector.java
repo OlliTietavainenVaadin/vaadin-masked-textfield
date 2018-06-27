@@ -1,10 +1,9 @@
 package org.vaadin.addons.maskedtextfield.client;
 
-import org.vaadin.addons.maskedtextfield.NumericField;
-
 import com.google.gwt.core.client.GWT;
 import com.vaadin.client.ui.textfield.TextFieldConnector;
 import com.vaadin.shared.ui.Connect;
+import org.vaadin.addons.maskedtextfield.NumericField;
 
 @Connect(NumericField.class)
 public class NumericFieldConnector extends TextFieldConnector {

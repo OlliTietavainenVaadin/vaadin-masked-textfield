@@ -1,9 +1,9 @@
 package org.vaadin.addons.maskedtextfield;
 
+import org.vaadin.addons.maskedtextfield.client.PrefixedMaskedTextFieldState;
+
 import java.util.Collections;
 import java.util.Map;
-
-import org.vaadin.addons.maskedtextfield.client.PrefixedMaskedTextFieldState;
 
 public class PrefixedMaskedTextField extends MaskedTextField {
 

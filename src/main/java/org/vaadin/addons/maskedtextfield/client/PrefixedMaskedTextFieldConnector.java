@@ -1,10 +1,9 @@
 package org.vaadin.addons.maskedtextfield.client;
 
-import org.vaadin.addons.maskedtextfield.PrefixedMaskedTextField;
-
 import com.google.gwt.core.client.GWT;
 import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.shared.ui.Connect;
+import org.vaadin.addons.maskedtextfield.PrefixedMaskedTextField;
 
 @Connect(PrefixedMaskedTextField.class)
 public class PrefixedMaskedTextFieldConnector extends MaskedTextFieldConnector {

@@ -1,6 +1,6 @@
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.vaadin.addons.maskedtextfield
-Bundle-Name: Vaadin Masked Text Field
+Bundle-Name: Masked Text Field for Vaadin 8
 Bundle-Vendor: Vaadin Community
 Excluded-Imports: 
  com.google.gwt*,
@@ -8,4 +8,4 @@ Excluded-Imports:
 Excluded-Exports: 
  org.vaadin.addons.maskedtextfield.client.*
 Import-Template:
- com.vaadin.*;version="[7.0.0, 8.0.0)"
+ com.vaadin.*;version="[8.4.4, 9.0.0)"

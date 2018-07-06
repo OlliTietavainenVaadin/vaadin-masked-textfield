@@ -20,7 +20,8 @@ public class TestUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         final MaskedTextField maskedTextField = new MaskedTextField("Masked field", "###-###-###");
-        maskedTextField.addValueChangeListener(event -> System.out.println("New value of the masked field: " + maskedTextField.getValue()));
+        maskedTextField.addValueChangeListener(event ->
+            System.out.println("New value of the masked field: " + maskedTextField.getValue()));
 
         final DecimalField decimalField = new DecimalField("Decimal field");
 

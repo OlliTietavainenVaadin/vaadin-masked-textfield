@@ -1,3 +1,6 @@
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/maskedtextfield-for-vaadin-8)
+[![Stars on Vaadin Directory](https://img.shields.io/vaadin-directory/star/maskedtextfield-for-vaadin-8.svg)](https://vaadin.com/directory/component/maskedtextfield-for-vaadin-8)
+
 # MaskedTextField for Vaadin 8
 
 Vaadin 8 version of [MaskedTextField](http://vaadin.com/addon/maskedtextfield)

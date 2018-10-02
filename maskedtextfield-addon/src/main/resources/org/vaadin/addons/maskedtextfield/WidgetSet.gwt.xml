@@ -1,0 +1,15 @@
+<module>
+
+	<!-- WS Compiler: manually edited -->
+
+	<!-- Inherit DefaultWidgetSet -->
+	<inherits name="com.vaadin.DefaultWidgetSet" />
+
+	<set-configuration-property name="devModeRedirectEnabled" value="true" />
+	<add-linker name="xsiframe" />
+
+	<source path="client" />
+	<source path="shared" />
+
+
+</module>

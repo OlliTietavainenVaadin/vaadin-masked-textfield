@@ -258,13 +258,13 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 			if(maskStrategy != null && charIndex < valueChars.length) {
 
 				char s = valueChars[charIndex];
-						while(!maskStrategy.isValid(s) && s != '\u0000' && charIndex<valueChars.length){
+						while(!maskStrategy.isValid(s) && s != '\u0000' && charIndex<valueChars.length && s!= maskplaceholder){
 							charIndex++;
 							s=valueChars[charIndex];
 						}
-						if(nullablePositions.contains(i) || maskStrategy.isValid(s) || s == '\u0000') {
-							if(s == '\u0000') {
-								sb.setCharAt(i, ' ');
+						if(nullablePositions.contains(i) || maskStrategy.isValid(s) || s == '\u0000' || s ==maskplaceholder) {
+							if(s == '\u0000' || s== maskplaceholder) {
+								sb.setCharAt(i, s);
 							} else {
 								sb.setCharAt(i, maskStrategy.getChar(s));
 							}

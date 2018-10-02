@@ -5,8 +5,8 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>maskedtextfield</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
-	<name>MyComponent Add-on</name>
+	<version>0.4.0</version>
+	<name>MaskedTextField for Vaadin 8 Add-on</name>
 
 	<prerequisites>
 		<maven>3</maven>

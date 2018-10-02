@@ -29,8 +29,8 @@ public class MaskedTextFieldConnector extends TextFieldConnector {
 
 		@Override
 		public void onStateChanged(StateChangeEvent stateChangeEvent) {
-			getWidget().setMask(getState().mask);
 			getWidget().setPlaceHolder(getState().maskPlaceHolder);
+			getWidget().setMask(getState().mask);
 			super.onStateChanged(stateChangeEvent);
 		}
 	

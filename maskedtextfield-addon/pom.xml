@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.vaadin.addons</groupId>
-	<artifactId>maskedtextfield</artifactId>
+	<artifactId>v8-maskedtextfield</artifactId>
 	<packaging>jar</packaging>
 	<version>0.5.0</version>
-	<name>MaskedTextField for Vaadin 8 Add-on</name>
+	<name>MaskedTextField for Vaadin 8</name>
 
 	<prerequisites>
 		<maven>3</maven>
@@ -28,23 +28,23 @@
 		<Vaadin-Addon>${project.artifactId}-${project.version}.jar</Vaadin-Addon>
 	</properties>
 
-    <!--
+
 	<organization>
-		<name>My Name</name>
-		<url>https://github.com/mygithubaccount/MyComponent/</url>
+		<name>Olli Tietäväinen</name>
+		<url>https://github.com/OlliTietavainenVaadin//maskedtextfield-for-vaadin-8/</url>
 	</organization>
+	<!--
+    <scm>
+        <url>git://github.com/mygithubaccount/MyComponent.git</url>
+        <connection>scm:git:git://github.com/mygithubaccount/MyComponent.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:/mygithubaccount/${componentClassName}.git</developerConnection>
+        <tag>MyComponent add-on for Vaadin</tag>
+    </scm>
 
-	<scm>
-		<url>git://github.com/mygithubaccount/MyComponent.git</url>
-		<connection>scm:git:git://github.com/mygithubaccount/MyComponent.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:/mygithubaccount/${componentClassName}.git</developerConnection>
-		<tag>MyComponent add-on for Vaadin</tag>
-	</scm>
-
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/mygithubaccount/MyComponent/issues</url>
-	</issueManagement>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/mygithubaccount/MyComponent/issues</url>
+    </issueManagement>
     -->
 
 	<licenses>

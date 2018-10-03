@@ -5,8 +5,8 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>maskedtextfield-root</artifactId>
 	<packaging>pom</packaging>
-	<version>MaskedTextField for Vaadin 8</version>
-	<name>0.5.0</name>
+	<version>0.5.0</version>
+	<name>MaskedTextField for Vaadin 8 root project</name>
 
 	<prerequisites>
 		<maven>3</maven>

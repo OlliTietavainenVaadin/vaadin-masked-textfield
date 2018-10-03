@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.vaadin.addons</groupId>
-	<artifactId>maskedtextfield</artifactId>
+	<artifactId>v8-maskedtextfield</artifactId>
 	<packaging>jar</packaging>
 	<version>0.5.0</version>
-	<name>MaskedTextField for Vaadin 8 Add-on</name>
+	<name>MaskedTextField for Vaadin 8</name>
 
 	<prerequisites>
 		<maven>3</maven>

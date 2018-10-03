@@ -99,6 +99,8 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	}
 
 	private void configureMask() {
+		maskTest.clear();
+		string = new StringBuilder();
 		for (int index = 0; index < mask.length(); index++) {
 			char character = mask.charAt(index);
 			createCorrectMaskAndPlaceholder(character, index);
@@ -306,6 +308,8 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 		} else if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 			if(isFieldIfIncomplete()) {
 				cleanText();
+				setMask(mask);
+				setCursorPos(getAvaliableCursorPos(0));
 			}
 			//super.onKeyDown(event);
 		} else {

@@ -31,9 +31,7 @@ public class DemoUI extends UI
     protected void init(VaadinRequest request) {
         final MaskedTextField maskedTextField = new MaskedTextField("Masked field", "###-###-###");
         maskedTextField.addValueChangeListener(event -> System.out.println("New value of the masked field: " + maskedTextField.getValue()));
-        maskedTextField.setMask("##-##-##");
-        maskedTextField.setValue("454545454");
-        //maskedTextField.setPlaceHolder(' ');
+        maskedTextField.setMask("(###) ###-####");
         maskedTextField.setPlaceHolder('\0');
 
         final DecimalField decimalField = new DecimalField("Decimal field");

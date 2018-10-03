@@ -70,7 +70,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.vaadin.addons</groupId>
-			<artifactId>maskedtextfield</artifactId>
+			<artifactId>v8-maskedtextfield</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

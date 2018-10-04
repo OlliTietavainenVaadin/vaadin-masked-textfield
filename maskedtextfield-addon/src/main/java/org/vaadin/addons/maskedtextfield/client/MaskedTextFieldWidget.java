@@ -2,6 +2,7 @@ package org.vaadin.addons.maskedtextfield.client;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.user.client.Event;
 import com.vaadin.client.ui.VTextField;
 import org.vaadin.addons.maskedtextfield.client.masks.*;
@@ -318,13 +319,15 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 	}
 	
 	private void deleteTextOnKeyDown(KeyDownEvent event) {
+		String oldValue= getSelectedText();
 		if(!getSelectedText().isEmpty()) {
 			String selected = getSelectedText();
 			for(int i=(selected.length()-1); i>=0; i--) {
 				int index = getText().indexOf(Character.toString(selected.charAt(i)));
 				deleteCharacter(index);
 			}
-			setCursorPos(0);
+			setCursorPositionAndPreventDefault(event,0);
+			//setCursorPos(0);
 		} else {
 			if(event.getNativeKeyCode() == KeyCodes.KEY_DELETE) {
 				deleteCharacterAndPositionCursor(event, getCursorPos());
@@ -332,6 +335,7 @@ public class MaskedTextFieldWidget extends VTextField implements KeyDownHandler,
 				deleteCharacterAndPositionCursor(event, getPreviousPosition(getCursorPos()));
 			}
 		}
+		ValueChangeEvent.fireIfNotEqual(this, oldValue, super.getText());
 	}
 
 	private void deleteCharacterAndPositionCursor(KeyDownEvent event, int position) {
